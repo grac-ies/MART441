@@ -1,9 +1,19 @@
-
-body {
-    color: #d8659f;
-    text-align: center;
-}
-
 h1{
-    color:rgb(149, 84, 206)
-}
+    text-align: center;
+    font-size: 40px;
+  }
+  body {
+    background-color: #ffff00;
+    text-align: center;
+  }
+  h1 {
+    color: rgb(234, 17, 17);
+  }
+  p {
+    font-size: 25px;
+  }
+  a {
+      font-size: 40px;
+      color: #5500ff;
+  }
+  
