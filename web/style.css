@@ -21,3 +21,26 @@ p {
     margin-left: 200px;
     margin-right: 200px;
 }
+
+header:hover {
+    background: linear-gradient(to right, #f35fcb, #7438b8);
+}
+
+h1 {
+    font-size: 150px;
+}
+
+h3 {
+    font-size: 40px;
+    color: rgba(235, 235, 96, 0.66);
+}
+
+h2 {
+    font-size: 40px;
+    color: rgba(235, 235, 96, 0.661);
+}
+
+
+h4 {
+    font-size: 20px;
+}
