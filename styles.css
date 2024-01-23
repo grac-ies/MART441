@@ -1,11 +1,22 @@
-h1{
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+header {
+    background-color: #0066cc;
+    color: #fff;
+    padding: 10px;
     text-align: center;
-    font-size: 40px;
-  }
-  body {
-    background-color: #ffff00;
+}
+
+main {
     text-align: center;
-  }
-  h1 {
-    color: rgb(234, 17, 17);
-  }
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 20px 0;
+}
