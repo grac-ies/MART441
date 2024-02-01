@@ -4,7 +4,7 @@ function setup() {
   }
   
   function draw() {
-    background(200);
+    backgroundrgb(80,173,195);
   
     //plate
     stroke(10)
