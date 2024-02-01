@@ -10,7 +10,7 @@
    var was = 90;
    var wasa = 30;
  
-   //wasabi speed
+   //wasabi speed :)
    var rspeed = 5;
    var gspeed = 9;
    var bspeed = 2;
