@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'Sixtyfour';
+    src: url('Sixtyfour/Sixtyfour-Regular.ttf') format('truetype');
+    /* or */
+    /* src: url('path/to/your/font/Sixtyfour-Regular-VariableFont_BLED,SCAN.ttf') format('truetype'); */
+}
+
+
+body 
+{
+    font-family: 'Sixtyfour';
+    background-color: #b176d8;
+    text-align: center;
+}
+
+#story-box 
+{  
+    max-width: 900px;
+    margin: 150px auto;
+    background-color: #c2a5eb;
+
+}
+
+.title 
+{
+    color: #231430;
+}
+
+button 
+{
+    background-color: #dc8dd6;
+    color: white;
+}
+
+button:hover 
+{
+    background-color: #ff0099;
+}
