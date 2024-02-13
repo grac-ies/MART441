@@ -1,0 +1,38 @@
+
+@font-face {
+    font-family: 'Sixtyfour-Regular';
+    src: url('Sixtyfour-Regular.ttf') format('truetype');
+
+}
+
+body 
+{
+
+    background-color: #dec8d5;
+    text-align: center;
+}
+
+#story-box 
+{  
+    max-width: 900px;
+    margin: 150px auto;
+    background-color: #a9f0f3;
+
+}
+
+.title 
+{
+    color: #000000;
+}
+
+button 
+{
+    background-color: #d1cdff;
+    color: rgb(255, 255, 255);
+}
+
+button:hover 
+{
+    background-color: #92b3ff;
+}
+
