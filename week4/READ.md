@@ -1,0 +1,1 @@
+this week was long and hard. its taking me a while to understand this. withthat being said i am proud of how this came out!!! I used a loop for the color rotation. I used math to create the random colors as well. I had a hard time with buttons and font. I dont understand why it takes tow or three times of clicking to get the button to work. 
