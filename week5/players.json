@@ -1,0 +1,17 @@
+{
+    "players": [
+      {
+        "firstName": "grace",
+        "lastName": "smith",
+        "age": 20,
+        "attempts": 3
+      },
+      {
+        "firstName": "trevor",
+        "lastName": "lohof",
+        "age": 19,
+        "attempts": 5
+      }
+    ]
+  }
+  

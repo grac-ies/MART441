@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Information JSON</title>
+</head>
+<body>
+    <h1>Player Information</h1>
+    <pre id="jsonData"></pre>
+
+    <script>
+        // gets JSON data 
+        const storedInfo = JSON.parse(localStorage.getItem("playerInfo"));
+
+        // shows JSON data
+        document.getElementById("jsonData").textContent = JSON.stringify(storedInfo, null, 2);
+    </script>
+</body>
+</html>

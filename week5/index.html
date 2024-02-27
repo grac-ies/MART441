@@ -3,16 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matching Game</title>
-    <style>
-        img 
-        {
-            font-size: 12px;
-        }
-    </style>
+    <title>Memory Game Introduction</title>
 </head>
 <body>
-    <div id="grid"></div> 
-    <script src="script.js"></script> 
+    <h1>Welcome to the Memory Matching Game!</h1>
+    <form id="playerInfoForm">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName"><br><br>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName"><br><br>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age"><br><br>
+        <button type="submit">Start Game</button>
+    </form>
+
+    <script>
+        document.getElementById("playerInfoForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // player info
+            const firstName = document.getElementById("firstName").value;
+            const lastName = document.getElementById("lastName").value;
+            const age = document.getElementById("age").value;
+
+            // json
+            const playerInfo = {
+                firstName: firstName,
+                lastName: lastName,
+                age: age,
+                attempts: 0 // Initialize attempts to zero
+            };
+
+            localStorage.setItem("playerInfo", JSON.stringify(playerInfo));
+
+            // goes to game
+            window.location.href = "home.html";
+        });
+    </script>
 </body>
 </html>
