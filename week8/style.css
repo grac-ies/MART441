@@ -1,0 +1,49 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+#container {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#image-container {
+    position: absolute;
+}
+
+#text-container {
+    position: absolute;
+    bottom: 20px;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    transition: all 2s ease-in-out;
+}
+
+#circle {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+
+#square {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+}
+
+#quote {
+    font-size: 50px;
+}
+
+#background{
+    background-color: black;
+}
