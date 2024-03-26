@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pokémon!</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <h1 id="changing-title">pokémon!</h1>
+        <div class="data-container">
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // my AJAX
+            $.ajax({
+                url: "poke.json",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    // looks at all info
+                    $.each(data.pokemon, function (index, pokemon) {
+                        //new div + pokemon
+                        var pokemonDiv = $("<div>").addClass("pokemon-card");
+
+                        //catagories
+                        var pokemonInfo = "<p><strong class='category'>Name:</strong> " + pokemon.name + "</p>";
+                        pokemonInfo += "<p><strong class='category'>Type:</strong> " + pokemon.type.join(', ') + "</p>";
+                        pokemonInfo += "<p><strong class='category'>Height:</strong> " + pokemon.height + "</p>";
+                        pokemonInfo += "<p><strong class='category'>Weight:</strong> " + pokemon.weight + "</p>";
+
+
+                        // pretty sure this actually shows everything on the web page 
+                        pokemonDiv.html(pokemonInfo);
+
+                        // merge! links it to container?
+                        $(".data-container").append(pokemonDiv);
+                    });
+                },
+
+            });
+        });
+
+        //jQuery plugin to change title color over time
+        $.fn.changeTitleColor = function() {
+            return this.each(function() {
+                var titleElement = $(this);
+
+                setInterval(function() {
+                    // variables
+                    var red = Math.floor(Math.random() * 256);
+                    var green = Math.floor(Math.random() * 256);
+                    var blue = Math.floor(Math.random() * 256);
+                    var color = 'rgb(' + red + ',' + green + ',' + blue + ')';
+
+                    titleElement.css('color', color);
+                }, 1000);
+            });
+        };
+
+        // make her pretty!
+        $(document).ready(function() {
+            $('#changing-title').changeTitleColor();
+        });
+    </script>
+</body>
+
+</html>
