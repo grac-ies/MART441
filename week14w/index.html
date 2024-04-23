@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>three.js</title>
+</head>
+
+<body>
+    <h1 style="color: rgb(0, 0, 0); font-size: 50px; text-align: center;">you. have. sinned.</h1>
+
+    <script src="https://montana-media-arts.github.io/441-WebTech-Spring2022-Examples/Week%2014/library/three.min.js">
+    </script>
+    <script src="https://montana-media-arts.github.io/441-WebTech-Spring2022-Examples/Week%2014/library/OBJLoader.js">
+    </script>
+    <script
+        src="https://montana-media-arts.github.io/441-WebTech-Spring2022-Examples/Week%2014/library/TrackballControls.js"></script>
+
+    <script>
+
+
+        var scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xffffff);
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+
+        //evil light
+        var directionalLight = new THREE.DirectionalLight(0xff0000, 1.1);
+        directionalLight.position.set(0, 3, 0);
+        scene.add(directionalLight);
+
+        //pink cube
+        var geometry1 = new THREE.BoxGeometry();
+        var material1 = new THREE.MeshBasicMaterial({ color: 0xff69b4 });
+        var cube1 = new THREE.Mesh(geometry1, material1);
+        scene.add(cube1);
+        cube1.position.set(-3, 0, 0);
+
+        //purple cube
+        var geometry2 = new THREE.BoxGeometry();
+        var material2 = new THREE.MeshBasicMaterial({ color: 0x800080 });
+        var cube2 = new THREE.Mesh(geometry2, material2);
+        scene.add(cube2);
+        cube2.position.set(0, 0, 0);
+
+        //blue cube
+        var geometry3 = new THREE.BoxGeometry();
+        var material3 = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+        var cube3 = new THREE.Mesh(geometry3, material3);
+        scene.add(cube3);
+        cube3.position.set(3, 0, 0);
+
+        camera.position.z = 5;
+
+
+        //cubes spin 
+        function spin() {
+            requestAnimationFrame(spin);
+
+            cube1.rotation.x += 0.02;
+            cube1.rotation.y += 0.03;
+
+            cube2.rotation.x += 0.01;
+            cube2.rotation.y += 0.015;
+
+            cube3.rotation.x += 0.005;
+            cube3.rotation.y += 0.0075;
+
+            renderer.render(scene, camera);
+        }
+
+
+        function loadModel() {
+            var loader = new THREE.OBJLoader();
+            loader.load(
+                "./untitled.obj",
+                function (object) {
+                    scene.add(object);
+                    object.scale.set(0.75, 0.73, 0.75);
+
+                    object.position.x = 0.5; //right
+                    object.position.y = 2; //up
+                    object.position.z = -5; //closer ot not
+                }
+            );
+        }
+
+
+        loadModel();
+        spin();
+
+    </script>
+</body>
+
+</html>
