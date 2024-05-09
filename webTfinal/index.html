@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>final Game!!</title>
+</head>
+
+<body>
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        var canvas = document.getElementById("gameCanvas");
+        var context = canvas.getContext("2d");
+
+        canvas.height = 600;
+        canvas.width = 1200;
+
+        var backgroundImage = new Image();
+        backgroundImage.src = "clouds.png";
+
+        var playerImage = new Image();
+        playerImage.src = "platformerGraphicsDeluxe_Updated/Player/p2_walk/PNG/p2_walk01.png";
+
+        var snailImage = new Image();
+        snailImage.src = "platformerGraphicsDeluxe_Updated/Enemies/snailWalk1.png";
+
+        var snailShellImage = new Image();
+        snailShellImage.src = "platformerGraphicsDeluxe_Updated/Enemies/snailShell.png";
+
+        var platformImage = new Image();
+        platformImage.src = "platformerGraphicsDeluxe_Updated/Tiles/stone.png";
+
+        var starImage = new Image();
+        starImage.src = "platformerGraphicsDeluxe_Updated/Items/star.png";
+
+        var collisionTimer = null;
+        var controlsInverted = false;
+        var gravity = 1;
+
+
+        var player = {
+            x: 50,
+            y: 0,
+            width: 96,
+            height: 96,
+            x_velocity: 0,
+            y_velocity: 0,
+            jumping: false
+        };
+
+        var platforms = [
+            { x: 0, y: canvas.height - 45, width: canvas.width, height: 50 },
+            { x: 200, y: canvas.height - 200, width: 70, height: 70 },
+            { x: 550, y: 350, width: 70, height: 70 },
+            { x: 680, y: 199, width: 70, height: 70 },
+            { x: 950, y: 50, width: 70, height: 70 }
+        ];
+
+        var star = {
+            x: 955,
+            y: canvas.height - 450 - 150,
+            width: 60,
+            height: 60,
+            collected: false
+        };
+
+        var snail = {
+            x: 200,
+            y: canvas.height - 100,
+            width: 70,
+            height: 50,
+            x_velocity: 1,
+            snailInShell: false
+        };
+
+
+        function switchSnailToShell() {
+            snail.snailInShell = true;
+            //1 second timer
+            collisionTimer = setTimeout(function () {
+                snail.snailInShell = false;
+                resetCollisionTimer();
+            }, 1000);
+
+            //invert controls
+            invertControls();
+            setTimeout(function () {
+                revertControls();
+            }, 10000);
+
+        }
+
+        function invertControls() {
+            controlsInverted = true;
+        }
+
+        function revertControls() {
+            controlsInverted = false;
+        }
+
+        function resetCollisionTimer() {
+            if (collisionTimer !== null) {
+                clearTimeout(collisionTimer);
+                collisionTimer = null;
+            }
+        }
+
+        function collides(obj1, obj2) {
+            return obj1.x < obj2.x + obj2.width &&
+                obj1.x + obj1.width > obj2.x &&
+                obj1.y < obj2.y + obj2.height &&
+                obj1.y + obj1.height > obj2.y;
+        }
+
+        function resetGame() {
+            player.x = 50;
+            player.y = 0;
+            player.x_velocity = 0;
+            player.y_velocity = 0;
+            player.jumping = false;
+
+            snail.x = 200;
+            snail.y = canvas.height - 100;
+            snail.x_velocity = 1;
+            snail.snailInShell = false;
+
+            star.collected = false;
+        }
+
+        document.addEventListener("keydown", function (event) {
+            if (controlsInverted) {
+                if (event.keyCode === 37) { //right key
+                    player.x_velocity = 5;
+                }
+                if (event.keyCode === 39) { //left key
+                    player.x_velocity = -5;
+                }
+            } else {
+                if (event.keyCode === 37) { //left key
+                    player.x_velocity = -5;
+                }
+                if (event.keyCode === 39) { //right key
+                    player.x_velocity = 5;
+                }
+            }
+            if (event.keyCode === 32 && !player.jumping) { //spacebar
+                player.y_velocity = -20;
+                player.jumping = true;
+            }
+        });
+
+        document.addEventListener("keyup", function (event) {
+            if (event.keyCode === 37 || event.keyCode === 39) {
+                player.x_velocity = 0;
+            }
+        });
+
+        function loop() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            //background
+            context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+
+            //platforms
+            platforms.forEach(function (platform) {
+                context.drawImage(platformImage, platform.x, platform.y, platform.width, platform.height);
+            });
+
+            //player
+            context.drawImage(playerImage, player.x, player.y, player.width, player.height);
+
+            //snail
+            if (!snail.snailInShell) {
+                context.drawImage(snailImage, snail.x, snail.y, snail.width, snail.height);
+            } else {
+                context.drawImage(snailShellImage, snail.x, snail.y, snail.width, snail.height);
+            }
+
+            //star
+            if (!star.collected) {
+                context.drawImage(starImage, star.x, star.y, star.width, star.height);
+            }
+
+            //player position and gravity
+            player.y_velocity += gravity;
+            player.x += player.x_velocity;
+            player.y += player.y_velocity;
+
+            //collision with platforms
+            if (player.y > canvas.height - player.height - 50) {
+                player.y = canvas.height - player.height - 50;
+                player.y_velocity = 0;
+                player.jumping = false;
+            }
+            platforms.forEach(function (platform) {
+                if (collides(player, platform)) {
+                    if (player.y > platform.y) {
+                        player.y = platform.y + platform.height;
+                        player.y_velocity = 0;
+                    } else {
+                        player.y = platform.y - player.height;
+                        player.y_velocity = 0;
+                        player.jumping = false;
+                    }
+                }
+            });
+
+            //snail doing snail things
+            snail.x += snail.x_velocity;
+            if (snail.x + snail.width > canvas.width || snail.x < 0) {
+                snail.x_velocity *= -1;
+            }
+
+            //player and snail
+            if (collides(player, snail)) {
+                switchSnailToShell();
+                resetCollisionTimer();
+            }
+
+            if (collides(player, star) && !star.collected) {
+                star.collected = true;
+                setTimeout(function () {
+                    alert("You Win!");
+                    resetGame();
+                }, 100);
+            }
+
+            requestAnimationFrame(loop);
+        }
+
+        loop();
+    </script>
+</body>
+
+</html>
